@@ -15,6 +15,8 @@ def pullcsv(csvlist = c.csvlist):
         csvname = csv.split("/")[-1].split(".")[0]
         csvfile.to_csv(f"{download}{csvname}.csv",index=False)
 
+def pullparquet(parquet = c.donor_retention_url):
+    download = c.download
     file = pd.read_parquet(f"{parquet}",engine="pyarrow")
     filename = parquet.split("/")[-1].split(".")[0]
     file.to_parquet(f"{download}{filename}.parquet",engine="pyarrow")
