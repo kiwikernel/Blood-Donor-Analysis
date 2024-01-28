@@ -1,8 +1,9 @@
-import os
+#import os
 from datetime import datetime, timedelta
 import pandas as pd
-import numpy as np
+#import numpy as np
 import matplotlib.pyplot as plt
+import time
 import requests
 from donorlib import const as c
 import geopandas as gpd
@@ -11,6 +12,7 @@ import geopandas as gpd
 def pullcsv(csvlist = c.csvlist):
     download = c.download
     for csv in csvlist:
+        time.sleep(0.5)
         csvfile = pd.read_csv(f"{csv}")
         csvname = csv.split("/")[-1].split(".")[0]
         csvfile.to_csv(f"{download}{csvname}.csv",index=False)
@@ -21,17 +23,37 @@ def pullparquet(parquet = c.donor_retention_url):
     filename = parquet.split("/")[-1].split(".")[0]
     file.to_parquet(f"{download}{filename}.parquet",engine="pyarrow")
 
-def send2group(chat_id = c.chat_id,token = c.token, message = c.sample_msg):
-    time_epoch = time.time()
-    local_time = time.ctime(time_epoch)
-    url = f'https://api.telegram.org/bot{token}/sendPhoto'
-    url = f'https://api.telegram.org/bot{token}/sendMessage'
-    params = {'chat_id': chat_id, 'text': f"{message} {local_time}"}
+def send_telegram(chat_id = c.chat_id,token = c.token, text = None, photo = None):
+    # telegram api for sending messages
+    api_url = f'https://api.telegram.org/bot{token}/sendMessage'
 
-    response = requests.get(url, params=params)
+    # prepping data to be sent
+    data = {'chat_id': chat_id}
+    files = None
 
+    if text:
+        data['text'] = text
+
+    if photo:
+        # telegram api for sending photos
+        api_url = f"https://api.telegram.org/bot{token}/sendPhoto"
+
+        # open photo file
+        with open(photo,'rb') as photo_file:
+            # prepping photo to be sent
+            files = {'photo': photo_file.read()}
+            if text:
+                # Adding caption to photo is present
+                data['caption'] = text
+
+    # sending the message/photo
+    response = requests.get(api_url, data=data, files=files)
+
+    # returning response if unsuccessful
     if response.status_code != 200: 
-        print(f'Failed to send message. Status code: {response.status_code}, Response: {response.text}')
+        print(f'Failed to send message/photo. Status code: {response.status_code}, Response: {response.text}')
+
+    time.sleep(0.5)
 
 def Readcsv(filename):
     data_loc = c.download
@@ -237,7 +259,6 @@ def donormap_viz():
     cut = .2
     up_limit = malaysia_states["total donors"].quantile(1-cut)
     lo_limit = malaysia_states["total donors"].quantile(cut)
-    print(up_limit, lo_limit)
 
     # Plot the geographic heatmap
     fig, ax = plt.subplots(figsize=(8,4))
