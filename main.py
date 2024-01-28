@@ -3,7 +3,6 @@ import time
 from datetime import datetime, timedelta
 import logging
 from donorlib import const as c
-from apscheduler.schedulers.background import BackgroundScheduler
 import schedule
 
 logging.basicConfig(filename='script_log.log', level=logging.INFO, format='%(asctime)s - %(message)s')
