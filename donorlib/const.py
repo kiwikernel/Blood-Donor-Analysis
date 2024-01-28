@@ -15,3 +15,6 @@ donor_state_url = 'https://raw.githubusercontent.com/MoH-Malaysia/data-darah-pub
 newdonor_facilities_url = 'https://raw.githubusercontent.com/MoH-Malaysia/data-darah-public/main/newdonors_facility.csv'
 newdonor_state_url = 'https://raw.githubusercontent.com/MoH-Malaysia/data-darah-public/main/newdonors_state.csv'
 csvlist = [donor_facilities_url,donor_state_url,newdonor_facilities_url,newdonor_state_url]
+
+# location to save visualization
+dataviz = "./dataviz/"
