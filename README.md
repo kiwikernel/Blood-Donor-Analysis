@@ -1,57 +1,30 @@
-# Project Title
-
-Job Interview Application Project
+# Malaysia Open Data Blood Donor Analysis
 
 ## Introduction
 
-This project serves as my application for the [job position] at [company]. It demonstrates my skills in [relevant skills] and showcases my ability to [relevant capabilities].
+This project serves to demonstrate some ways of doing analysis on open blood donor data and statistics.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
-- [Contributing](#contributing)
-- [Credits](#credits)
-- [License](#license)
 - [Contact](#contact)
-- [Additional Notes](#additional-notes)
 
 ## Installation
 
 1. Clone this repository.
-2. Install dependencies using `npm install`.
-3. Run the project with `npm start`.
+2. Install dependencies using the `requirements.txt`.
+3. Run the project using Python 3.x or higher.
 
 ## Usage
 
-To use the project:
-- Navigate to the project directory.
-- Open `index.html` in your browser.
+Run the 'main.py' script and it will automatically send to a Telegram group updates on blood donor statistics at 9:00 AM daily.
 
 ## Features
 
-- Responsive design for mobile and desktop.
-- Integration with [API/service].
-- User authentication system.
-
-## Contributing
-
-We welcome contributions! Please follow our [contribution guidelines](CONTRIBUTING.md).
-
-## Credits
-
-- [Library/Framework Name](link)
-- Icons by [Icon Artist](link)
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+Any error messages will be recorded in 'script_log.log'.
 
 ## Contact
 
-For inquiries or feedback, contact me at [email@example.com].
-
-## Additional Notes
-
-- [Any extra information or considerations.]
+For inquiries or feedback, contact me at [mfrmnoor(at)gmail(dot)com].
