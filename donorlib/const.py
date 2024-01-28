@@ -1,9 +1,7 @@
-
-
 # telegram group
-token = '6754519975:AAEipis4kLVurvzATUP49IxrfCH6MQ35Rkw'
-bot_id = '@kiwikernelbot'
-chat_id = -1002068798727
+token = 'xxx' # enter your bot token here
+bot_id = '@xxx' # enter your bot id here
+chat_id = -000 # enter your telegram chat id here
 time_string = '%a %d-%b-%Y %H:%M:%S'
 Text = ["National Weekly Trend for Last 3 Months", "State Trend for Last 3 Months", "Individual Max Donations by Age for Last 5 Years", "Geographic Heatmap of Donations in Past 7 Days"]
 Photo = ["national_donor_trend.png", "state_donor_trend.png", "donor_retention.png", "donor_map.png"]
