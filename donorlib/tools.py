@@ -44,8 +44,11 @@ def send_telegram(chat_id = c.chat_id,token = c.token, text = None, photo = None
                 # Adding caption to photo is present
                 data['caption'] = text
 
+    # Disable SSL certificate verification
+    requests.packages.urllib3.disable_warnings()
+    
     # sending the message/photo
-    response = requests.get(api_url, data=data, files=files)
+    response = requests.get(api_url, data=data, files=files, verify=False)
 
     # returning response if unsuccessful
     if response.status_code != 200: 
