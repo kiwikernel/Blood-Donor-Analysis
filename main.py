@@ -47,8 +47,9 @@ try:
     # initial run of the task
     Main_task()
 
-    # scheduling the task to run everyday at 9:00 AM
-    schedule.every().day.at("09:00").do(Main_task)
+    # scheduling the task to run everyday at 10:00 AM and 5:00 PM
+    schedule.every().day.at("10:00").do(Main_task)
+    schedule.every().day.at("17:00").do(Main_task)
     
     # control variable to end the task after 1 year (365 days)
     end_date = datetime.now() + timedelta(days=365)
