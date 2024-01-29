@@ -1,58 +1,64 @@
 from donorlib import tools as t
 import time
 from datetime import datetime, timedelta
-import logging as logger
+import logging
 from donorlib import const as c
 import schedule as sch
 
-logger.basicConfig(filename='script_log.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(filename='script_log.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 def Main_task(): 
     t.pullcsv()
-    logger.info('Pulling CSV completed')
+    logging.info('Pulling CSV completed')
     time.sleep(1)
 
     t.pullparquet()
-    logger.info('Pulling Parquet completed')
+    logging.info('Pulling Parquet completed')
     time.sleep(1)
 
     t.nationaltrend_viz()
-    logger.info('National blood donation trend completed')
+    logging.info('National blood donation trend completed')
     time.sleep(1)
 
     t.statetrend_viz()
-    logger.info('State blood donation trend completed')
+    logging.info('State blood donation trend completed')
     time.sleep(1)
 
     t.retention_viz()
-    logger.info('Blood donor retention completed')
+    logging.info('Blood donor retention completed')
     time.sleep(1)
 
     t.donormap_viz()
-    logger.info('Blood donation heatmap completed')
+    logging.info('Blood donation heatmap completed')
     time.sleep(1)
     
-    t.send_telegram(text=f"Daily Blood Donation Update\n{datetime.now().strftime(c.time_string)}", photo=None)
+    t.send_telegram(text=f"Blood Donation Update\n{datetime.now().strftime(c.time_string)}", photo=None)
     
     for text, photo in zip(c.Text, c.Photo):
         try: t.send_telegram(text=f"{text}", photo=f"{c.dataviz}{photo}")
-        except Exception as e: logger.info(e)
+        except Exception as e: logging.info(e)
 
-    logger.info('Messages sent')
+    logging.info('Messages sent')
     time.sleep(1)
 
 try: 
-    logger.info('Script started')
+    logging.info('Script started')
     
     # initial run of the task
     Main_task()
 
-    # scheduling the task to run everyday at 10:00 AM and 5:00 PM
-    sch.every().day.at("10:00").do(Main_task)
-    sch.every().day.at("17:00").do(Main_task)
+    # scheduling the task to run everyday on the following times
+    sch.every().day.at("13:59").do(Main_task)
+    sch.every().day.at("16:59").do(Main_task)
+    sch.every().day.at("19:59").do(Main_task)
+    sch.every().day.at("22:59").do(Main_task)
+    sch.every().day.at("01:59").do(Main_task)
+    sch.every().day.at("04:59").do(Main_task)
+    sch.every().day.at("07:59").do(Main_task)
+    sch.every().day.at("10:59").do(Main_task)
     
-    # control variable to end the task after 1 year (365 days)
-    end_date = datetime.now() + timedelta(days=365)
+    # control variable to end the task after 18 hours
+    end_date = datetime.now() + timedelta(days=1.25)
     exit_flag = False
     
     # the task will run as schduled until control variable is True
@@ -64,8 +70,8 @@ try:
             exit_flag = True
         
 except Exception as e: 
-    logger.info('Script encountered error')
-    logger.info(e)
+    logging.info('Script encountered error')
+    logging.info(e)
 
 finally:
-    logger.info('Script ended\n')
+    logging.info('Script ended\n')
