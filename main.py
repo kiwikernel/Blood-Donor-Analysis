@@ -10,27 +10,27 @@ logger.basicConfig(filename='script_log.log', level=logging.INFO, format='%(asct
 def Main_task(): 
     t.pullcsv()
     logger.info('Pulling CSV completed')
-    time.sleep(0.5)
+    time.sleep(1)
 
     t.pullparquet()
     logger.info('Pulling Parquet completed')
-    time.sleep(0.5)
+    time.sleep(1)
 
     t.nationaltrend_viz()
     logger.info('National blood donation trend completed')
-    time.sleep(0.5)
+    time.sleep(1)
 
     t.statetrend_viz()
     logger.info('State blood donation trend completed')
-    time.sleep(0.5)
+    time.sleep(1)
 
     t.retention_viz()
     logger.info('Blood donor retention completed')
-    time.sleep(0.5)
+    time.sleep(1)
 
     t.donormap_viz()
     logger.info('Blood donation heatmap completed')
-    time.sleep(0.5)
+    time.sleep(1)
     
     t.send_telegram(text=f"Daily Blood Donation Update\n{datetime.now().strftime(c.time_string)}", photo=None)
     
@@ -38,8 +38,8 @@ def Main_task():
         try: t.send_telegram(text=f"{text}", photo=f"{c.dataviz}{photo}")
         except Exception as e: logger.info(e)
 
-    logger.info('Messages sent\n')
-    time.sleep(0.5)
+    logger.info('Messages sent')
+    time.sleep(1)
 
 try: 
     logger.info('Script started')
@@ -58,7 +58,7 @@ try:
     # the task will run as schduled until control variable is True
     while not exit_flag:
         sch.run_pending()
-        time.sleep(60)
+        time.sleep(30)
 
         if datetime.now() > end_date:
             exit_flag = True
