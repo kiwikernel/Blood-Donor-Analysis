@@ -27,4 +27,4 @@ Any error messages will be recorded in `script_log.log`.
 
 ## Contact
 
-For inquiries or feedback, contact me at `mfrmnoor(at)gmail(dot)com`.
+For inquiries or feedback, contact me at `kiwikernel586(at)gmail(dot)com`.
