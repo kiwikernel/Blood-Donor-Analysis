@@ -19,7 +19,7 @@ This project serves to demonstrate some ways of doing analysis on open blood don
 
 ## Usage
 
-Run the `main.py` script and it will automatically send to a Telegram group updates on blood donor statistics at 9:00 AM daily.
+Run the `main.py` script and it will automatically send to a Telegram group updates on blood donor statistics at 10:00 AM and 5:00 PM daily.
 
 ## Features
 
