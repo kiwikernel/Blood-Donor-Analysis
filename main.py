@@ -48,17 +48,11 @@ try:
     Main_task()
 
     # scheduling the task to run everyday on the following times
-    sch.every().day.at("13:59").do(Main_task)
-    sch.every().day.at("16:59").do(Main_task)
-    sch.every().day.at("19:59").do(Main_task)
-    sch.every().day.at("22:59").do(Main_task)
-    sch.every().day.at("01:59").do(Main_task)
-    sch.every().day.at("04:59").do(Main_task)
-    sch.every().day.at("07:59").do(Main_task)
-    sch.every().day.at("10:59").do(Main_task)
+    sch.every().day.at("11:00").do(Main_task)
+    sch.every().day.at("20:00").do(Main_task)
     
-    # control variable to end the task after 18 hours
-    end_date = datetime.now() + timedelta(days=1.25)
+    # control variable to end the task after 365 days (1 year)
+    end_date = datetime.now() + timedelta(days=365)
     exit_flag = False
     
     # the task will run as schduled until control variable is True
