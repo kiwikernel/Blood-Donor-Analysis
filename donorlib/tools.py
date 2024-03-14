@@ -131,7 +131,10 @@ def nationaltrend_viz():
     def custom_agg(series):
         return series.iloc[0] if series.dtype == 'object' else series.sum()
     
-    df = df_merged.groupby("state",as_index=False).resample("W-Mon", on="date").agg(custom_agg).reset_index()
+    df = (df_merged
+          .groupby("state",as_index=False)
+          .resample("W-Mon", on="date")
+          .agg(custom_agg).reset_index())
     
     # selecting data for past 3 months
     date = datetime.now() - timedelta(days=30.5*3)
@@ -204,7 +207,10 @@ def statetrend_viz():
     def custom_agg(series):
         return series.iloc[0] if series.dtype == 'object' else series.sum()
     
-    df = df[["state","total donors","new donors"]].groupby("state",as_index=False).agg(custom_agg).sort_values("total donors",ascending=False)
+    df = (df[["state","total donors","new donors"]]
+          .groupby("state",as_index=False)
+          .agg(custom_agg)
+          .sort_values("total donors",ascending=False))
 
     # preparing data for visualization
     x = df['state']
@@ -247,14 +253,21 @@ def donormap_viz():
     def custom_agg(series):
         return series.iloc[0] if series.dtype == 'object' else series.sum()
     
-    df = df[["state","total donors"]].groupby("state",as_index=False).agg(custom_agg).sort_values("total donors",ascending=False)
+    df = (df[["state","total donors"]]
+          .groupby("state",as_index=False)
+          .agg(custom_agg)
+          .sort_values("total donors",ascending=False))
 
     # Load the shapefile containing Malaysia's states
     malaysia_states = gpd.read_file(".\shapefile\malaysia\malaysianStates.shp")
     malaysia_states.at[12,"name"] = "Terengganu"
 
     # merging shapefile table with the dataframe
-    malaysia_states = pd.merge(malaysia_states, df, left_on='name', right_on='state', how='inner')
+    malaysia_states = pd.merge(malaysia_states, 
+                               df, 
+                               left_on='name', 
+                               right_on='state', 
+                               how='inner')
 
     # calculate legend range
     cut = .2
@@ -263,7 +276,14 @@ def donormap_viz():
 
     # Plot the geographic heatmap
     fig, ax = plt.subplots(figsize=(8,4))
-    malaysia_states.plot(column = "total donors", cmap='plasma', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True, vmin=lo_limit, vmax=up_limit)
+    malaysia_states.plot(column = "total donors", 
+                         cmap='plasma', 
+                         linewidth=0.8, 
+                         ax=ax, 
+                         edgecolor='0.8', 
+                         legend=True, 
+                         vmin=lo_limit, 
+                         vmax=up_limit)
 
     # Add title and labels
     plt.title('Geographic Heatmap of Blood Donations in Past 7 Days')
